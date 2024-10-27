@@ -39,7 +39,7 @@ El proyecto está diseñado para administradores de sistemas y usuarios avanzado
 
 ## Instalación
 
-1. Clona este repositorio:
+1.- Clona este repositorio:
       bash
    git clone https://github.com/Arturo2e/PC.PIA-Grupo_2.git
    cd PC.PIA-Grupo_2
