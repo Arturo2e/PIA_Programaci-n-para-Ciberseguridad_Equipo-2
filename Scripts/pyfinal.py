@@ -17,8 +17,9 @@ import logging
 # [Definicion_Argumentos_Y_Opciones]
 
 arguments = argparse.ArgumentParser()
-arguments.add_argument("-f", "--file", help="Especifica el script principal o la tarea unificada a ejecutar. Las tareas unificadas son: * script_arocultos_urlhaus.py * script_monitoreo_abuseipdb.py", type=str, choices=["Select-SecTask.ps1", "main_bash1.2.py", "main_menu.py", "script_arocultos_urlhaus.py", "script_monitoreo_abuseipdb.py"], default="")
-arguments.add_argument("-o","--option", help="Especifica la tarea a ejecutar por medio de el identificador númerico de la tarea. IDENTIFICADORES_NUMERICOS: 'Select-SecTask.ps1': 1, 2, 3, 4 ; 'main_bash1.2.py': 1,2 ; 'main_menu.py': 1, 2, 3, 4, 5", type=int, default=0)
+arguments.add_argument("-f", "--file", help="Especifica el script principal o la tarea unificada a ejecutar. 'script_arocultos_urlhaus.py' escanea URLs o lista los arhivos ocultos en la carpeta actual.", type=str, choices=["Select-SecTask.ps1", "main_bash1.2.py", "main_menu.py", "script_arocultos_urlhaus.py"], default="")
+arguments.add_argument("-o","--option", help="Especifica la tarea a ejecutar por medio de el identificador númerico de la tarea. IDENTIFICADORES_NUMERICOS: 'Select-SecTask.ps1': 1, 2, 3, 4 ; 'main_bash1.2.py': 1,2 ; 'main_menu.py': 1, 2, 3, 4, 5 ", type=int, default=0)
+arguments.description = "DESCRIPCIÓN: Ejecuta una tarea especificada de el menu especificado."
 args = arguments.parse_args()
 
 # Falta agregar el bloque de codigo para ejecutar una tarea que no se encuentre en los scripts principales
@@ -28,7 +29,7 @@ args = arguments.parse_args()
 class glob_var:
     # <global_variables>
     op_sys = platform.system()
-    files = ["Select-SecTask.ps1", "main_bash1.2.py", "main_menu.py", "script_arocultos_urlhaus.py", "script_monitoreo_abuseipdb.py"]
+    files = ["Select-SecTask.ps1", "main_bash1.2.py", "main_menu.py", "script_arocultos_urlhaus.py"]
     script_name = str(args.file)
     task_number = int(args.option)
 
@@ -129,7 +130,7 @@ def mk_report(task_number = glob_var.task_number, script_name = glob_var.script_
 
     # Escritura de el numero de tarea (identificador de tarea), la fecha en la que se ejecuto (hoy) \
     # el nombre del script necesario para ejecutar la tarea y la ruta del mismo
-    if (script_name == "script_arocultos_urlhaus.py" or script_name == "script_monitoreo_abuseipdb.py"):
+    if (script_name == "script_arocultos_urlhaus.py"):
         report = open(f"{script_name}_report.txt", "a")
         report.writelines([f"\nFecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_var.script_path}\n"])
         report.close()
