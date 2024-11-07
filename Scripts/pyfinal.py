@@ -19,7 +19,7 @@ import logging
 arguments = argparse.ArgumentParser()
 arguments.add_argument("-f", "--file", help="Especifica el script principal o la tarea unificada a ejecutar. 'script_arocultos_urlhaus.py' escanea URLs o lista los arhivos ocultos en la carpeta actual.", type=str, choices=["Select-SecTask.ps1", "main_bash1.2.py", "main_menu.py", "script_arocultos_urlhaus.py"], default="")
 arguments.add_argument("-o","--option", help="Especifica la tarea a ejecutar por medio de el identificador númerico de la tarea. IDENTIFICADORES_NUMERICOS: 'Select-SecTask.ps1': 1, 2, 3, 4 ; 'main_bash1.2.py': 1,2 ; 'main_menu.py': 1, 2, 3, 4, 5 ", type=int, default=0)
-arguments.description = "DESCRIPCIÓN: Ejecuta una tarea especificada de el menu especificado."
+arguments.description = "DESCRIPCIÓN: Ejecuta una tarea especificada de el menu especificado o ejecuta el script unificado."
 args = arguments.parse_args()
 
 # Falta agregar el bloque de codigo para ejecutar una tarea que no se encuentre en los scripts principales
