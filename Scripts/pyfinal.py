@@ -26,12 +26,13 @@ args = arguments.parse_args()
 # python final_project-g2.py --file <script_name> --option <task_number> 
 # final_project-g2.py sera el nombre de este script.
 
-class glob_var:
+class glob_vars:
     # <global_variables>
     op_sys = platform.system()
     files = ["Select-SecTask.ps1", "main_bash1.2.py", "main_menu.py", "script_arocultos_urlhaus.py"]
     script_name = str(args.file)
     task_number = int(args.option)
+    current_date = str(datetime.date.today())
 
     if (op_sys == "Windows"):
         try:
@@ -41,8 +42,8 @@ class glob_var:
             path_output = div_output[2]
             script_path = unit_output + path_output
 
-        except FileNotFoundError:
-            script_path = f"Archivo {script_name} no encontrado."
+            if (len(script_path) == 0):
+                script_path = f"Archivo {script_name} no encontrado."
         
         except KeyboardInterrupt:
             print("Ha interrumpido el programa.")
@@ -50,9 +51,9 @@ class glob_var:
     elif (op_sys == "Linux"):
         try:
             script_path = subprocess.run(f"find -name {script_name}", capture_output=True, text=True, shell=True).stdout
-        
-        except FileNotFoundError:
-            script_path = f"Archivo {script_name} no encontrado."
+            
+            if (len(script_path) == 0):
+                script_path = f"Archivo {script_name} no encontrado."
         
         except KeyboardInterrupt:
             print("Ha interrumpido el programa.")
@@ -60,28 +61,28 @@ class glob_var:
 # [Funciones]
 
 # Devuelve falso o verdadero dependiendo de si el argumento de interprete ingresado es PowerShell o no
-def taskisps(file = glob_var.script_name):
-    if (glob_var.files[0] == file or glob_var.files[3] == file):
+def taskisps(file = glob_vars.script_name):
+    if (glob_vars.files[0] == file or glob_vars.files[3] == file):
         return True
     else:
         return False
 
 # Devuelve falso o verdadero dependiendo de si el argumento de interprete ingresado es Bash o no
-def taskisbash(file = glob_var.script_name):
-    if (glob_var.files[1] == file or glob_var.files[4] == file):
+def taskisbash(file = glob_vars.script_name):
+    if (glob_vars.files[1] == file):
         return True
     else:
         return False
 
 # Devuelve falso o verdadero dependiendo de si el argumento de interprete ingresado es Python o no
-def taskispy(file = glob_var.script_name):
-    if (glob_var.files[2] == file or glob_var.files[4] == file):
+def taskispy(file = glob_vars.script_name):
+    if (glob_vars.files[2] == file or glob_vars.files[4] == file):
         return True
     else:
         return False
 
 # Generacion del mensaje de advertencia
-def warning_mssg(op_sys = glob_var.op_sys):
+def warning_mssg(op_sys = glob_vars.op_sys):
     if (op_sys == "Windows" and taskisbash()):
         logging.warning("\tADVERTENCIA: Esta tarea de bash no es soportada por Windows.")
         warn_mssg = "ADVERTENCIA: Esta tarea de bash no es soportada por Windows."
@@ -96,8 +97,8 @@ def warning_mssg(op_sys = glob_var.op_sys):
     return warn_mssg
 
 # Generacion del mensaje de error
-def error_mssg(task_number = glob_var.task_number):
-    script_name = glob_var.script_name
+def error_mssg(task_number = glob_vars.task_number):
+    script_name = glob_vars.script_name
 
     if (script_name == "Select-SecTask.ps1"):
         if (task_number > 4 or task_number < 1):
@@ -125,14 +126,14 @@ def error_mssg(task_number = glob_var.task_number):
 
 # Generación de reportes individuales en base al nombre del script \ 
 # y el argumento numerico que identifica la tarea a ejecutar (Bash, Python, PowerShell)
-def mk_report(task_number = glob_var.task_number, script_name = glob_var.script_name):
-    current_date = str(datetime.date.today())
+def mk_report(task_number = glob_vars.task_number, script_name = glob_vars.script_name):
+    current_date = glob_vars.current_date
 
     # Escritura de el numero de tarea (identificador de tarea), la fecha en la que se ejecuto (hoy) \
     # el nombre del script necesario para ejecutar la tarea y la ruta del mismo
     if (script_name == "script_arocultos_urlhaus.py"):
         report = open(f"{script_name}_report.txt", "a")
-        report.writelines([f"\nFecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_var.script_path}\n"])
+        report.writelines([f"\nFecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_vars.script_path}\n"])
         report.close()
 
     else:
@@ -144,7 +145,7 @@ def mk_report(task_number = glob_var.task_number, script_name = glob_var.script_
         
         elif (task_number >= 1 and task_number <= 5):
             report = open(f"task-{str(task_number)}_report.txt", "a")
-            report.writelines([f"\nTarea: {str(task_number)}\n", f"Fecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_var.script_path}"])
+            report.writelines([f"\nTarea: {str(task_number)}\n", f"Fecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_vars.script_path}"])
             # Si el valor que tiene task_number no es un identificador de tarea numerico valido para el script en script_name
             err_mssg = error_mssg()
 
@@ -157,22 +158,29 @@ def mk_report(task_number = glob_var.task_number, script_name = glob_var.script_
             # Si la tarea tarea es menor que 1 o mayor que 5, excluyendo al valor 0
             report = open(f"{script_name}_report.txt", "a")
             err_mssg = error_mssg()
-            report.writelines([f"\nFecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_var.script_path}", f"{err_mssg}\n"])
+            report.writelines([f"\nFecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_vars.script_path}", f"{err_mssg}\n"])
             report.close()
 
     return report
 
-# Generacion de el reporte final
-def end_report():
-    end_report = open("end_report.txt", "a+")
+# Generacion de hash de el reporte individual resultante
+def hash_file():
     report = mk_report()
-    
     bin_report = open(report.name, "rb")
     buff_report = bin_report.read()
     file_hash = hashlib.sha256()
     file_hash.update(buff_report)
     file_hash = file_hash.hexdigest().upper()
     bin_report.close()
+
+    return file_hash
+
+# Generacion de el reporte final
+def end_report():
+    end_report = open("end_report.txt", "a+")
+
+    report = mk_report()    
+    file_hash = hash_file()
 
     read_report = open(report.name, "r")
     read = read_report.read()
@@ -186,38 +194,67 @@ def end_report():
         end_report.writelines(f"\n{warn_msg}")
     
     end_report.close()
-    return end_report
 
 # Ejecucion del script principal, dependiendo de el nombre del script ingresado
-def run_script(script_name = glob_var.script_name):
-    op_sys = glob_var.op_sys
+def run_script(script_name = glob_vars.script_name):
+    op_sys = glob_vars.op_sys
 
     try:
-        script_path = glob_var.script_path
+        script_path = glob_vars.script_path
 
         if (op_sys == "Windows" and taskisps()):
-            cmdline = subprocess.run(f"Powershell -ExecutionPolicy ByPass -Command {script_path}", errors=None)
+            cmdline = subprocess.run(f"Powershell -ExecutionPolicy ByPass -Command {script_path}", errors=None, capture_output=True)
             mk_report()
+            file_hash = hash_file()
+            print(f"\nTAREA:  {glob_vars.task_number}")
+            print(f"FECHA:  {glob_vars.current_date}")
+            print(f"SCRIPT: {script_name}")
+            print(f"RUTA:   {script_path}")
+            print(f"HASH:   {file_hash}\n")
             end_report()
 
         elif (op_sys == "Windows" and taskisbash()):
             mk_report()
+            file_hash = hash_file()
+            print(f"\nTAREA:  {glob_vars.task_number}")
+            print(f"FECHA:  {glob_vars.current_date}")
+            print(f"SCRIPT: {script_name}")
+            print(f"RUTA:   {script_path}")
+            print(f"HASH:   {file_hash}\n")
             end_report()
 
         elif (op_sys == "Linux" and taskisbash()):
-            cmdline = subprocess.run(f"Bash {script_path}", shell=True, errors=None)
+            cmdline = subprocess.run(f"Bash {script_path}", shell=True, errors=None, capture_output=True)
             mk_report()
+            file_hash = hash_file()
+            print(f"\nTAREA:  {glob_vars.task_number}")
+            print(f"FECHA:  {glob_vars.current_date}")
+            print(f"SCRIPT: {script_name}")
+            print(f"RUTA:   {script_path}")
+            print(f"HASH:   {file_hash}\n")
             end_report()
 
         elif (op_sys == "Linux" and taskisps()):
             mk_report()
+            file_hash = hash_file()
+            print(f"\nTAREA:  {glob_vars.task_number}")
+            print(f"FECHA:  {glob_vars.current_date}")
+            print(f"SCRIPT: {script_name}")
+            print(f"RUTA:   {script_path}")
+            print(f"HASH:   {file_hash}\n")
             end_report()
 
         elif ([op_sys == "Windows" or op_sys == "Linux"] and taskispy()):
             div_path = script_path.partition(f"{script_name}")
             cwd = div_path[0]
-            cmdline = subprocess.run(f"python {script_path}", errors=None, cwd=cwd)
+            cmdline = subprocess.run(f"python {script_path}", errors=None, cwd=cwd, capture_output=True)
             mk_report()
+            file_hash = hash_file()
+            print(f"\nTAREA:  {glob_vars.task_number}")
+            print(f"FECHA:  {glob_vars.current_date}")
+            print(f"SCRIPT: {script_name}")
+            print(f"RUTA:   {script_path}")
+            print(f"HASH:   {file_hash}\n")
             end_report()
 
         else:
@@ -243,7 +280,7 @@ def run_script(script_name = glob_var.script_name):
 
 # Dado que el valor predeterminado de la longitud de el argumento ingresado en el parametro --file es cero, \ 
 # entonces este script no se ejecutara a menos que se especifique un script en el agumento de el parametro --file
-if (len(glob_var.script_name) != 0):
+if (len(glob_vars.script_name) != 0):
     try:
         #request.main
         run_script()
