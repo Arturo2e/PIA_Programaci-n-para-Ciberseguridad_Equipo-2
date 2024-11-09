@@ -35,10 +35,14 @@ class glob_vars:
 
     if (op_sys == "Windows"):
         try:
+            # Ejecuta el siguiente comando, captura su salida en texto plano y guarda el valor de stdout de el comando a la variable output
             output = subprocess.run(f"ATTRIB /S \\{script_name}", capture_output=True, text=True).stdout
+            # Divide la salida en tres partes a partir del separador
             div_output = output.partition("C:")
+            # Obtiene los valores de la cadena en 1 (separador) y la cadena en 2 (ruta)
             unit_output = div_output[1]
             path_output = div_output[2]
+            # Concatena estos dos valores anteriores
             script_path = unit_output + path_output
 
             if (len(script_path) == 0):
@@ -124,7 +128,7 @@ def error_mssg(task_number = glob_vars.task_number):
     return err_mssg
 
 # Generación de reportes individuales en base al nombre del script \ 
-# y el argumento numerico que identifica la tarea a ejecutar (Bash, Python, PowerShell)
+# y el argumento numerico que identifica la tarea a ejecutar
 def mk_report(task_number = glob_vars.task_number, script_name = glob_vars.script_name):
     current_date = glob_vars.current_date
 
@@ -154,7 +158,7 @@ def mk_report(task_number = glob_vars.task_number, script_name = glob_vars.scrip
             report.close()
         
         elif ((task_number > 5 or task_number < 1) and task_number != 0):
-            # Si la tarea tarea es menor que 1 o mayor que 5, excluyendo al valor 0
+            # Si la tarea tarea es menor que 1 o mayor que 5, y excluyendo al valor 0
             report = open(f"{script_name}_report.txt", "a")
             err_mssg = error_mssg()
             report.writelines([f"\nFecha: {current_date}\n", f"Nombre: {script_name}\n", f"Ruta: {glob_vars.script_path}", f"{err_mssg}\n"])
@@ -289,4 +293,5 @@ if (len(glob_vars.script_name) != 0):
         exit()
 
 else:
+    # Muestra la ayuda del comando en la terminal si no se han ingresado los parametros
     arguments.print_help()
