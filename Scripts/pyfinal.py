@@ -24,7 +24,6 @@ args = arguments.parse_args()
 
 # Falta agregar el bloque de codigo para ejecutar una tarea que no se encuentre en los scripts principales
 # python final_project-g2.py --file <script_name> --option <task_number> 
-# final_project-g2.py sera el nombre de este script.
 
 class glob_vars:
     # <global_variables>
@@ -50,7 +49,7 @@ class glob_vars:
 
     elif (op_sys == "Linux"):
         try:
-            script_path = subprocess.run(f"find -name {script_name}", capture_output=True, text=True, shell=True).stdout
+            script_path = subprocess.run(f"find / -name {script_name}", capture_output=True, text=True, shell=True).stdout
             
             if (len(script_path) == 0):
                 script_path = f"Archivo {script_name} no encontrado."
@@ -84,11 +83,11 @@ def taskispy(file = glob_vars.script_name):
 # Generacion del mensaje de advertencia
 def warning_mssg(op_sys = glob_vars.op_sys):
     if (op_sys == "Windows" and taskisbash()):
-        logging.warning("\tADVERTENCIA: Esta tarea de bash no es soportada por Windows.")
+        logging.warning("\tEsta tarea de bash no es soportada por Windows.")
         warn_mssg = "ADVERTENCIA: Esta tarea de bash no es soportada por Windows."
 
     elif (op_sys == "Linux" and taskisps()):
-        logging.warning("\tADVERTENCIA: Esta tarea de powershell no es soportada por un sistema Linux.")
+        logging.warning("\tEsta tarea de powershell no es soportada por un sistema Linux.")
         warn_mssg = "ADVERTENCIA: Esta tarea de powershell no es soportada por un sistema Linux."
     
     else:
@@ -102,7 +101,7 @@ def error_mssg(task_number = glob_vars.task_number):
 
     if (script_name == "Select-SecTask.ps1"):
         if (task_number > 4 or task_number < 1):
-            str(logging.error("\tERROR: La tarea es desconocida."))
+            str(logging.error("\tLa tarea es desconocida."))
             err_mssg = "ERROR: La tarea es desconocida"
         else:
             err_mssg = None
@@ -110,14 +109,14 @@ def error_mssg(task_number = glob_vars.task_number):
     elif (script_name == "main_bash1.2.py"):
         if (task_number > 2 or task_number < 1):
             
-            logging.error("\tERROR: La tarea es desconocida.")
+            logging.error("\tLa tarea es desconocida.")
             err_mssg = "ERROR: La tarea es desconocida"
         else:
             err_mssg = None
 
     elif (script_name == "main_menu.py"):
         if (task_number > 5 or task_number < 1):
-            logging.error("\tERROR: La tarea es desconocida.")
+            logging.error("\tLa tarea es desconocida.")
             err_mssg = "ERROR: La tarea es desconocida"
         else:
             err_mssg = None
@@ -288,3 +287,6 @@ if (len(glob_vars.script_name) != 0):
     except KeyboardInterrupt:
         print("\nHa interrumpido el programa.")
         exit()
+
+else:
+    arguments.print_help()
