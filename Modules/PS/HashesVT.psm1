@@ -8,19 +8,19 @@ $urlVirusTotal = "https://www.virustotal.com/api/v3/files"
 .NAME
     Get-ChildItem
 
-SINTAXIS
+.SINTAXIS
     Get-ChildItem [[-Path] <string[]>] [[-Filter] <string>]  [<CommonParameters>]
 
     Get-ChildItem [[-Filter] <string>]  [<CommonParameters>]
 
 
-ALIAS
+.ALIAS
     gci
     ls
     dir
 
 
-NOTAS
+.NOTES
     Get-Help no encuentra los archivos de Ayuda para este cmdlet en el equipo. Mostrará solo una parte de la Ayuda.
         -- Para descargar e instalar los archivos de Ayuda para el módulo que incluye este cmdlet, use Update-Help.
         -- Para ver en línea el tema de Ayuda de este cmdlet, escriba "Get-Help Get-ChildItem -Online" o
@@ -30,11 +30,11 @@ $results = @()
 <# NOMBRE
     Get-FileHash
 
-SINOPSIS
+.SINOPSYS
     Computes the hash value for a file by using a specified hash algorithm.
 
 
-SINTAXIS
+.SINTAXIS
     Get-FileHash [-Algorithm {SHA1 | SHA256 | SHA384 | SHA512 | MACTripleDES | MD5 | RIPEMD160}] -InputStream <System.IO.Stream> [<CommonParameters>]
 
     Get-FileHash [-Algorithm {SHA1 | SHA256 | SHA384 | SHA512 | MACTripleDES | MD5 | RIPEMD160}] -LiteralPath <System.String[]> [<CommonParameters>]
@@ -42,7 +42,7 @@ SINTAXIS
     Get-FileHash [-Path] <System.String[]> [-Algorithm {SHA1 | SHA256 | SHA384 | SHA512 | MACTripleDES | MD5 | RIPEMD160}] [<CommonParameters>]
 
 
-DESCRIPCIÓN
+.DESCRIPCTION
     The `Get-FileHash` cmdlet computes the hash value for a file by using a specified hash algorithm. A hash value is a unique value that corresponds to the content of
     the file. Rather than identifying the contents of a file by its file name, extension, or other designation, a hash assigns a unique value to the contents of a file.
     File names and extensions can be changed without altering the content of the file, and without changing the hash value. Similarly, the file's content can be changed
@@ -60,7 +60,7 @@ VÍNCULOS RELACIONADOS
     Online Version: https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1&WT.mc_id=ps-gethelp
     Format-List
 
-NOTAS
+.NOTES
     Para ver los ejemplos, escriba: "get-help Get-FileHash -examples".
     Para obtener más información, escriba: "get-help Get-FileHash -detailed".
     Para obtener información técnica, escriba: "get-help Get-FileHash -full".
@@ -71,14 +71,15 @@ foreach ($file in $files) {
     $headers = @{
         "x-apikey" = $apikey
     }
-<# NOMBRE
+<# 
+.NAME
     Invoke-RestMethod
 
-SINOPSIS
+.SINOPSYS
     Sends an HTTP or HTTPS request to a RESTful web service.
 
 
-SINTAXIS
+.SINTAXIS
     Invoke-RestMethod [-Uri] <System.Uri> [-Body <System.Object>] [-Certificate <System.Security.Cryptography.X509Certificates.X509Certificate>] [-CertificateThumbprint
     <System.String>] [-ContentType <System.String>] [-Credential <System.Management.Automation.PSCredential>] [-DisableKeepAlive] [-Headers
     <System.Collections.IDictionary>] [-InFile <System.String>] [-MaximumRedirection <System.Int32>] [-Method {Default | Get | Head | Post | Put | Delete | Trace |
@@ -87,7 +88,7 @@ SINTAXIS
     [-UseBasicParsing] [-UseDefaultCredentials] [-UserAgent <System.String>] [-WebSession <Microsoft.PowerShell.Commands.WebRequestSession>] [<CommonParameters>]
 
 
-DESCRIPCIÓN
+.DESCRIPCTION
     The `Invoke-RestMethod` cmdlet sends HTTP and HTTPS requests to Representational State Transfer (REST) web services that return richly structured data.
 
     PowerShell formats the response based to the data type. For an RSS or ATOM feed, PowerShell returns the Item or Entry XML nodes. For JavaScript Object Notation (JSON)
@@ -108,7 +109,7 @@ VÍNCULOS RELACIONADOS
     ConvertFrom-Json
     Invoke-WebRequest
 
-NOTAS
+.NOTES
     Para ver los ejemplos, escriba: "get-help Invoke-RestMethod -examples".
     Para obtener más información, escriba: "get-help Invoke-RestMethod -detailed".
     Para obtener información técnica, escriba: "get-help Invoke-RestMethod -full".
@@ -121,18 +122,19 @@ NOTAS
             Response = $response
         }
     } catch {
-<# NOMBRE
+<# 
+.NAME
     Write-Warning
 
-SINOPSIS
+.SINOPSYS
     Writes a warning message.
 
 
-SINTAXIS
+.SINTAXIS
     Write-Warning [-Message] <System.String> [<CommonParameters>]
 
 
-DESCRIPCIÓN
+.DESCRIPTION
     The `Write-Warning` cmdlet writes a warning message to the PowerShell host. The response to the warning depends on the value of the user's `$WarningPreference`
     variable and the use of the WarningAction common parameter.
 
@@ -149,7 +151,7 @@ VÍNCULOS RELACIONADOS
     Write-Progress
     Write-Verbose
 
-NOTAS
+.NOTES
     Para ver los ejemplos, escriba: "get-help Write-Warning -examples".
     Para obtener más información, escriba: "get-help Write-Warning -detailed".
     Para obtener información técnica, escriba: "get-help Write-Warning -full".
@@ -158,18 +160,19 @@ NOTAS
     }
 }
 
-<# NOMBRE
+<# 
+.NAME
     ConvertTo-Json
 
-SINOPSIS
+.SINOPSYS
     Converts an object to a JSON-formatted string.
 
 
-SINTAXIS
+.SINTAXIS
     ConvertTo-Json [-InputObject] <System.Object> [-Compress] [-Depth <System.Int32>] [<CommonParameters>]
 
 
-DESCRIPCIÓN
+.DESCRIPTION
     The `ConvertTo-Json` cmdlet converts any .NET object to a string in JavaScript Object Notation (JSON) format. The properties are converted to field names, the field
     values are converted to property values, and the methods are removed.
 
@@ -189,7 +192,7 @@ VÍNCULOS RELACIONADOS
     Invoke-WebRequest
     Invoke-RestMethod
 
-NOTAS
+.NOTES
     Para ver los ejemplos, escriba: "get-help ConvertTo-Json -examples".
     Para obtener más información, escriba: "get-help ConvertTo-Json -detailed".
     Para obtener información técnica, escriba: "get-help ConvertTo-Json -full".
