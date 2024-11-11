@@ -8,7 +8,7 @@ $urlVirusTotal = "https://www.virustotal.com/api/v3/files"
 .NAME
     Get-ChildItem
 
-.SINTAXYS
+.SINTAXIS
     Get-ChildItem [[-Path] <string[]>] [[-Filter] <string>]  [<CommonParameters>]
 
     Get-ChildItem [[-Filter] <string>]  [<CommonParameters>]
@@ -27,10 +27,11 @@ $urlVirusTotal = "https://www.virustotal.com/api/v3/files"
            vaya a https://go.microsoft.com/fwlink/?LinkID=113308. #>
 $files = Get-ChildItem -Path $directorio 
 $results = @()
-<# NOMBRE
+<# 
+.NOMBRE
     Get-FileHash
 
-.SINOPSYS
+.SyNOPSIS
     Computes the hash value for a file by using a specified hash algorithm.
 
 
