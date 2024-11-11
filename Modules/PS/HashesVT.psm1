@@ -8,7 +8,7 @@ $urlVirusTotal = "https://www.virustotal.com/api/v3/files"
 .NAME
     Get-ChildItem
 
-.SINTAXIS
+.SYNTAXIS
     Get-ChildItem [[-Path] <string[]>] [[-Filter] <string>]  [<CommonParameters>]
 
     Get-ChildItem [[-Filter] <string>]  [<CommonParameters>]
