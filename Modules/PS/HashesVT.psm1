@@ -43,7 +43,7 @@ $results = @()
     Get-FileHash [-Path] <System.String[]> [-Algorithm {SHA1 | SHA256 | SHA384 | SHA512 | MACTripleDES | MD5 | RIPEMD160}] [<CommonParameters>]
 
 
-.DESCRIPCTION
+.DESCRIPTION
     The `Get-FileHash` cmdlet computes the hash value for a file by using a specified hash algorithm. A hash value is a unique value that corresponds to the content of
     the file. Rather than identifying the contents of a file by its file name, extension, or other designation, a hash assigns a unique value to the contents of a file.
     File names and extensions can be changed without altering the content of the file, and without changing the hash value. Similarly, the file's content can be changed
